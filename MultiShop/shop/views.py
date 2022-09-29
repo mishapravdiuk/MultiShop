@@ -8,4 +8,5 @@ from django.http import HttpResponse
 def index(request):
     return render(request, 'shop/index.html')
 
-
+def get_category(request, slug):
+    return render(request, 'shop/index.html')
