@@ -34,8 +34,8 @@ class Size(models.Model):
 
 class ProductInfo(models.Model):
     title=models.CharField(max_length=255)
-    size=models.ManyToManyField(Size, related_name="product")
-    color=models.CharField(max_length=255)
+    size=models.ManyToManyField(Size, related_name="product", blank=True)
+    color=models.CharField(max_length=255, blank=True)
     category=models.ForeignKey(Category, on_delete=models.PROTECT, related_name="product")
     price=models.FloatField()
     description=models.TextField()
@@ -53,3 +53,4 @@ class ProductInfo(models.Model):
     class Meta:
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
+        ordering=['-created_at']

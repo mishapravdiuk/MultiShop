@@ -8,8 +8,10 @@ from .models import *
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields ={"slug": ('title',)}
     save_as=True
+    save_on_top=True
     list_display = ('title', 'slug',  'color', 'category', 'price', 'quantity', 'views', 'get_photo')
     list_display_links=('title', 'slug')
+    search_fields=('title',)
     list_filter=('category',)
     readonly_fields= ('views',)
     fields=('title', 'slug',  'color', 'size', 'category', 'description', 'price', 'quantity', 'views', 'photo')
@@ -19,6 +21,8 @@ class ProductAdmin(admin.ModelAdmin):
             return mark_safe(f'<img src="{obj.photo.url}" width="50">')
         else:
             return '-'
+
+    get_photo.short_description = "Photo"
 
 
 class CategoryAdmin(admin.ModelAdmin):
