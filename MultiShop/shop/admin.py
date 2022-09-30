@@ -27,6 +27,10 @@ class ProductAdmin(admin.ModelAdmin):
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields ={"slug": ('title',)}
+    fields=('title', 'slug', 'photo')
+    search_fields=('title',)
+    list_display_links=('title', 'slug')
+    list_display = ('title', 'slug')
     
 
 
