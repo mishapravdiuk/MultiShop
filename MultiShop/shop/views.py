@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 from .models import *
+from django.db.models import F
 
 # Create your views here.
 def index(request):
@@ -11,6 +12,7 @@ def index(request):
 
 def get_category(request, slug):
     return render(request, 'shop/index.html')
+
 
 class Home(ListView):
     model = ProductInfo
@@ -21,6 +23,7 @@ class Home(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
 
 class ProductByCategory(ListView):
     template_name = 'shop/index.html'
@@ -36,6 +39,7 @@ class ProductByCategory(ListView):
         context['title'] = Category.objects.get(slug=self.kwargs['slug'])
         return context
 
+
 class GetProduct(DetailView):
     model = ProductInfo
     template_name = 'shop/product.html'
@@ -44,4 +48,7 @@ class GetProduct(DetailView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        self.object.views = F('views') + 1
+        self.object.save()
+        self.object.refresh_from_db()
         return context
