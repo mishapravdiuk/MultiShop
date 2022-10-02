@@ -10,11 +10,11 @@ def show_category():
 
 
 @register.inclusion_tag('shop/category_view.html')
-def category_view():
-    categories = Category.objects.all()
+def category_view(cnt=12):
+    categories = Category.objects.all()[:cnt]
     return {"categories": categories}
 
 @register.inclusion_tag('shop/featured_products.html')
-def featured_products():
-    products = ProductInfo.objects.all().order_by('-created_at')
+def featured_products(cnt=8):
+    products = ProductInfo.objects.order_by('-views')[:cnt]
     return {"products": products}
