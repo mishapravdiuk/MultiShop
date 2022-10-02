@@ -16,5 +16,5 @@ def category_view():
 
 @register.inclusion_tag('shop/featured_products.html')
 def featured_products():
-    products = ProductInfo.objects.all()
+    products = ProductInfo.objects.all().order_by('-created_at')
     return {"products": products}

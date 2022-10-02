@@ -38,7 +38,7 @@ class ProductByCategory(ListView):
 
 class GetProduct(DetailView):
     model = ProductInfo
-    template_name = 'shop/index.html'
+    template_name = 'shop/product.html'
     context_object_name = 'product'
     paginate_by=4
 
