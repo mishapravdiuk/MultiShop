@@ -13,3 +13,8 @@ def show_category():
 def category_view():
     categories = Category.objects.all()
     return {"categories": categories}
+
+@register.inclusion_tag('shop/featured_products.html')
+def featured_products():
+    products = ProductInfo.objects.all()
+    return {"products": products}

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load cache %}
 <html lang="en">
 
 <head>
@@ -29,15 +30,16 @@
 
 <body>
 
+{% cache 60 header %}    
 {% include 'inc/_header.html' %}
-
+{% endcache %}
 
 {% block content %}
 {% endblock %}   
 
-
+{% cache 60 footer %}    
 {% include "inc/_footer.html" %}
-
+{% endcache %}
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
