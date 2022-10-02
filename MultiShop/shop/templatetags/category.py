@@ -18,3 +18,8 @@ def category_view(cnt=12):
 def featured_products(cnt=8):
     products = ProductInfo.objects.order_by('-views')[:cnt]
     return {"products": products}
+
+@register.inclusion_tag('shop/recent_products.html')
+def recent_products(cnt=8):
+    products = ProductInfo.objects.order_by('-created_at')[:cnt]
+    return {"products": products}
