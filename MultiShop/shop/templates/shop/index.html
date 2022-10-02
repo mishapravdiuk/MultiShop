@@ -147,7 +147,9 @@
 
 
 <!-- Products Start -->
+    {% cache 60 recent_products %}
     {% recent_products %}
+    {% endcache %}
 <!-- Products End -->
 
 
