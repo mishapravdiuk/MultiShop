@@ -26,8 +26,8 @@ class Home(ListView):
 
 
 class ProductByCategory(ListView):
-    template_name = 'shop/index.html'
-    context_object_name = 'products'
+    template_name = 'shop/store.html'
+    context_object_name = 'product'
     # paginate_by = 9
     # allow_empty = False
 
@@ -51,4 +51,15 @@ class GetProduct(DetailView):
         self.object.views = F('views') + 1
         self.object.save()
         self.object.refresh_from_db()
+        return context
+
+
+class GetStore(ListView):
+    model = ProductInfo
+    template_name= 'shop/store.html'
+    context_object_name = 'product'
+    paginate_by=5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
         return context
