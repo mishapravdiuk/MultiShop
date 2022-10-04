@@ -201,6 +201,8 @@
                         </div>
                     </div>
                 </div>
+                {% empty %}
+                <h5>Nothing found for your request</h5>
                 {% endfor %}
 
 
@@ -212,16 +214,16 @@
                             {% if page_obj.number == page %}
                             <li class="page-item active"><a class="page-link" >{{ page }}</a></li>
                             {% elif page > page_obj.number|add:-3 and page < page_obj.number|add:3 %}
-                            <li class="page-item"><a class="page-link" href="?page={{ page }}">{{ page }}</a></li>
+                            <li class="page-item"><a class="page-link" href="?{{ search }}page={{ page }}">{{ page }}</a></li>
                             {% endif %}
                         {% endfor %}
 
                         {% if page_obj.has_previous %}
-                            <li class="page-item "><a class="page-link" href="?page={{ page_obj.previous_page_number }}">Previous</span></a></li> 
+                            <li class="page-item "><a class="page-link" href="?{{ search }}page={{ page_obj.previous_page_number }}">Previous</span></a></li> 
                         {% endif %}
 
                         {% if page_obj.has_next %}
-                            <li class="page-item "><a class="page-link" href="?page={{ page_obj.next_page_number }}">Next</span></a></li> 
+                            <li class="page-item "><a class="page-link" href="?{{ search }}page={{ page_obj.next_page_number }}">Next</span></a></li> 
                         {% endif %}
                       </ul>
                     </nav>
