@@ -58,7 +58,7 @@ class GetStore(ListView):
     model = ProductInfo
     template_name= 'shop/store.html'
     context_object_name = 'product'
-    paginate_by=5
+    paginate_by=6
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
