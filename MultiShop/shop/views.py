@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 
-from .forms import CreateUserForm
+from .forms import *
 from .models import *
 from django.db.models import F
 from django.conf import settings
@@ -13,6 +13,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.forms import UserCreationForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from django.contrib.auth import login, logout
 
 
 # Create your views here.
@@ -163,25 +164,39 @@ def cart_remove_product(request, product_id):
 
 @csrf_exempt
 def registerPage(request):
-    form = CreateUserForm()
+    form = UserRegisterForm()
     if request.method == 'POST':
-        form = CreateUserForm(request.POST)
+        form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            # login(request, user)
+            login(request, user)
             messages.success(request, "You've registered successfully ")
             return redirect('login')
         else:
             messages.error(request, "Registration error")
     else:
-        form = CreateUserForm()
+        form = UserRegisterForm()
     return render(request, 'shop/reg.html', {'form': form})
 
 
 
+@csrf_exempt
+def loginPage(request):
+    if request.method == 'POST':
+        form = UserLoginForm(data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, 'shop/login.html', {"form": form})
 
-def logInPage(request):
-    pass
+
+def user_logout(request):
+    logout(request)
+    return redirect('login')
+
 
 
 
