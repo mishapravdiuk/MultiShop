@@ -1,12 +1,19 @@
 from email.policy import HTTP
+import re
 from unicodedata import name
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
+
+from .forms import CreateUserForm
 from .models import *
 from django.db.models import F
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.forms import UserCreationForm
+from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
+
 
 # Create your views here.
 def index(request):
@@ -152,4 +159,30 @@ def cart_remove_product(request, product_id):
     cart_item = CartItem.objects.get(product=product, cart=cart)
     cart_item.delete()
     return redirect('cart_detail')
+
+
+@csrf_exempt
+def registerPage(request):
+    form = CreateUserForm()
+    if request.method == 'POST':
+        form = CreateUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # login(request, user)
+            messages.success(request, "You've registered successfully ")
+            return redirect('login')
+        else:
+            messages.error(request, "Registration error")
+    else:
+        form = CreateUserForm()
+    return render(request, 'shop/reg.html', {'form': form})
+
+
+
+
+def logInPage(request):
+    pass
+
+
+
 
