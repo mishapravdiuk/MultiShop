@@ -5,6 +5,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.views.generic import ListView, DetailView
 
+from django.core.mail import send_mail
 from .forms import *
 from .models import *
 from django.db.models import F
@@ -211,4 +212,25 @@ def add_product(request):
     return render(request, 'shop/add_product.html', {'form': form})
 
 
+
+@csrf_exempt
+def mail_sender(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            text = f"""User name: {form.cleaned_data['user_name']}
+Email: {form.cleaned_data['user_mail']}
+Text: {form.cleaned_data['content']}
+"""
+            mail = send_mail(form.cleaned_data['subject'], text, 'multishopsmtptest@gmail.com', ('mishapravdiuk04@gmail.com',), fail_silently=False)
+            if mail:
+                messages.success(request, "You've sent your letter ")
+                return redirect('home')
+            else:
+                messages.error(request, "Sending error")
+        else:
+            messages.error(request, "Sending error")
+    else:
+        form = ContactForm()
+    return render(request, 'shop/email.html', {'form': form})
 

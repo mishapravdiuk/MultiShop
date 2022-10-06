@@ -16,4 +16,5 @@ urlpatterns = [
     path('login/', loginPage, name='login'),
     path('logout/', user_logout, name='logout'),
     path('add-product/', add_product, name='add_product'),
+    path('email/', mail_sender, name='email'),
 ]
