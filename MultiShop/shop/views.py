@@ -198,6 +198,17 @@ def user_logout(request):
     return redirect('login')
 
 
+@csrf_exempt
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            product = ProductInfo.objects.create(**form.cleaned_data)
+            # news = form.save()
+            return redirect(product)
+    else:
+        form = ProductForm()
+    return render(request, 'shop/add_product.html', {'form': form})
 
 
 
