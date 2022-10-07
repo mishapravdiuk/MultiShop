@@ -5,6 +5,11 @@ from .models import *
 
 # Register your models here.
 
+class ProductImageAdmin(admin.StackedInline):
+    model=ProductImage
+
+
+@admin.register(ProductInfo)
 class ProductAdmin(admin.ModelAdmin):
     prepopulated_fields ={"slug": ('title',)}
     save_as=True
@@ -15,6 +20,8 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter=('category',)
     readonly_fields= ('views',)
     fields=('title', 'slug',  'color', 'size', 'category', 'description', 'price', 'quantity', 'views', 'photo')
+    inlines = [ProductImageAdmin]
+
 
     def get_photo(self, obj):
         if obj.photo:
@@ -24,6 +31,9 @@ class ProductAdmin(admin.ModelAdmin):
 
     get_photo.short_description = "Photo"
 
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    pass
 
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields ={"slug": ('title',)}
@@ -36,5 +46,3 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Size)
-admin.site.register(ProductInfo, ProductAdmin)
-

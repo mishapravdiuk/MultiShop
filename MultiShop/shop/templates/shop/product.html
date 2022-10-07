@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
-
+{% load get_images %}
 {% load static %}
 {% load cache %}
 {% load recommendation %}
+
 
 {% block content %}
 
@@ -24,25 +25,7 @@
     <!-- Shop Detail Start -->
     <div class="container-fluid pb-5">
         <div class="row px-xl-5">
-            <div class="col-lg-5 mb-30">
-                <div id="product-carousel" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner bg-light">
-                        <div class="carousel-item active">
-                            {% if product.photo %}
-                            <img class="w-100 h-100" src="{{ product.photo.url}}" alt="Image">
-                            {% else %}
-                            <img class="w-100 h-100" src="#" alt="Image">
-                            {% endif %}
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
-                        <i class="fa fa-2x fa-angle-left text-dark"></i>
-                    </a>
-                    <a class="carousel-control-next" href="#product-carousel" data-slide="next">
-                        <i class="fa fa-2x fa-angle-right text-dark"></i>
-                    </a>
-                </div>
-            </div>
+            {% get_image product.id %}
 
             <div class="col-lg-7 h-auto mb-30">
                 <div class="h-100 bg-light p-30">

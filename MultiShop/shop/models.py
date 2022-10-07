@@ -1,5 +1,6 @@
 from ctypes import sizeof
 from distutils.command.upload import upload
+from email.policy import default
 from platform import release
 from statistics import quantiles
 from tabnanny import verbose
@@ -64,6 +65,13 @@ class ProductInfo(models.Model):
         verbose_name = 'Product'
         verbose_name_plural = 'Products'
         ordering=['-created_at']
+
+class ProductImage(models.Model):
+    product=models.ForeignKey(ProductInfo, on_delete=models.CASCADE, default=None)
+    image=models.ImageField(upload_to='products/%Y/%m/%d/')
+
+    def __str__(self):
+        return self.product.title
 
 
 class Cart(models.Model):
