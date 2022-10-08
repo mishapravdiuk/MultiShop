@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load cache %}
+{% load recommendation %}
+
+{% block content %}
+
+{% comment %}
+<form action="" method="POST" style="margin-left: 140px;">
+    {{ form.as_p}}
+    <button class="btn btn-primary " type="submit">Add product</button>
+</form>
+{% endcomment %}
+
+
+
+<div class="col-lg-6 mx-auto">
+    <h4 class="mx-3">Add your product</h4>
+<form method="POST" class="col-lg-10">
+    <div class="form-group" >
+        <label for="{{form.title.id_for_label }}">{{form.title.label}}</label>
+        {{ form.title }}
+    </div>
+    <div class="form-group">
+        <label for="{{form.slug.id_for_label }}">{{form.slug.label}}</label>
+        {{ form.slug }}
+    </div>
+    <div class="form-group">
+        <label for="{{form.description.id_for_label }}">{{form.description.label}}</label>
+        {{ form.description }}
+    </div>
+    <div class="form-group">
+        <label for="{{form.color.id_for_label }}">{{form.color.label}}</label>
+        {{ form.color }}
+    </div>
+    <div class="form-group">
+        <label for="{{form.category.id_for_label }}">{{form.category.label}}</label>
+        {{ form.category }}
+    </div>
+    <div class="form-group">
+        <label for="{{form.price.id_for_label }}">{{form.price.label}}</label>
+        {{ form.price }}
+    </div>
+    <div class="form-group">
+        <label for="{{form.quantity.id_for_label }}">{{form.quantity.label}}</label>
+        {{ form.quantity }}
+    </div>
+    <button type="submit" class="btn btn-warning btn-block ">Add product</button>
+</form>
+</div>
+
+
+{% endblock %}
