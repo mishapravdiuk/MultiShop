@@ -17,7 +17,6 @@
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-secondary mb-2" href="{% url 'home' %}"><i class="fa fa-angle-right mr-2"></i>Home</a>
                         <a class="text-secondary mb-2" href="{% url 'store' %}"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                         <a class="text-secondary mb-2" href="{% url 'cart_detail' %}"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                         <a class="text-secondary" href="{% url 'email' %}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                     </div>
@@ -27,7 +26,6 @@
                     <div class="d-flex flex-column justify-content-start">
                         <a class="text-secondary mb-2" href="{% url 'home' %}"><i class="fa fa-angle-right mr-2"></i>Home</a>
                         <a class="text-secondary mb-2" href="{% url 'store' %}"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                        <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                         <a class="text-secondary mb-2" href="{% url 'cart_detail' %}"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                         <a class="text-secondary" href="{% url 'email' %}"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
                     </div>
@@ -37,10 +35,13 @@
                     <p>Duo stet tempor ipsum sit amet magna ipsum tempor est</p>
                     <form action="">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Your Email Address">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary">Sign Up</button>
+                            {% if request.user.is_authenticated  %}
+                            {% else %}
+                            <div class="input-group-append " >
+                                <a class="btn btn-primary " style="margin-right: 20px;" href="{% url 'login' %}">Log In</a>
+                                <a class="btn btn-primary" href="{% url 'register' %}">Register</a>
                             </div>
+                            {% endif %}
                         </div>
                     </form>
                     <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
